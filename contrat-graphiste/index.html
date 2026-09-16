@@ -63,7 +63,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
 .actions{display:flex;gap:8px;align-items:center}
 .btn{border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);padding:7px 13px;border-radius:8px;
-  font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap}
+  font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
 .btn:hover{background:var(--surface-2)}
 .btn-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .btn-primary:hover{filter:brightness(1.07);background:var(--accent)}
@@ -184,6 +184,7 @@ legend h2{margin:0;font-family:var(--sans);font-size:14px;font-weight:600;letter
       <button type="button" id="tab-doc" role="tab" aria-selected="false" aria-controls="pane-doc">Contrat</button>
     </div>
     <div class="actions">
+      <a class="btn btn-ghost" href="court.html">Version courte</a>
       <button type="button" class="btn btn-ghost" id="btn-demo">Exemple</button>
       <button type="button" class="btn btn-ghost" id="btn-reset">Réinitialiser</button>
       <button type="button" class="btn btn-primary" id="btn-print">Imprimer / PDF</button>
@@ -470,8 +471,8 @@ legend h2{margin:0;font-family:var(--sans);font-size:14px;font-weight:600;letter
     <h3>Article 10 — Signature électronique et preuve</h3>
     <p>Les Parties conviennent de signer le présent contrat par voie électronique et reconnaissent la validité de ce mode de
       signature conformément à la réglementation burkinabè applicable aux transactions électroniques.</p>
-    <p>Elles reconnaissent que le présent document au format PDF, accompagné de sa référence, de son horodatage et de son empreinte
-      numérique reproduits ci-dessous, ainsi que l'échange par courrier électronique entre les adresses mentionnées en tête des
+    <p>Elles reconnaissent que le présent document au format PDF, accompagné de sa référence et de son horodatage
+      reproduits ci-dessous, ainsi que l'échange par courrier électronique entre les adresses mentionnées en tête des
       présentes, constituent la preuve de leur accord. Chaque Partie en conserve un exemplaire.</p>
 
     <h3>Article 11 — Droit applicable et litiges</h3>
@@ -499,8 +500,7 @@ legend h2{margin:0;font-family:var(--sans);font-size:14px;font-weight:600;letter
 
     <div class="audit">
       <b>Référence :</b> <span id="out-ref2"></span><br>
-      <b>Généré le :</b> <span id="out-stamp"></span><br>
-      <b>Empreinte SHA-256 du contenu :</b> <span id="out-hash">calcul…</span>
+      <b>Généré le :</b> <span id="out-stamp"></span>
     </div>
 
     <div class="annex" id="annex" hidden>
@@ -523,9 +523,23 @@ var KEY = "taonsa.contrat.v1";
 var TODO = "[À COMPLÉTER]";
 
 /* ---------- stockage local (confort, jamais critique) ---------- */
-function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||"{}")||{}; }catch(e){ return {}; } }
+var CKEY = "taonsa.client.v1";
+var CLIENT_KEYS = ["cl_denom","cl_rep","cl_mail","cl_rccm","cl_ifu","cl_siege","cl_qual","cl_tel"];
+function readJSON(k){ try{ return JSON.parse(localStorage.getItem(k)||"{}")||{}; }catch(e){ return {}; } }
+function load(){
+  var o = readJSON(KEY), c = readJSON(CKEY);
+  CLIENT_KEYS.forEach(function(k){ if(c[k]!==undefined && o[k]===undefined) o[k]=c[k]; });
+  return o;
+}
 var store = load(), saveTimer=null;
-function writeNow(){ try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){} }
+function writeNow(){
+  try{
+    var mine={}, cli={};
+    Object.keys(store).forEach(function(k){ (CLIENT_KEYS.indexOf(k)>-1? cli : mine)[k]=store[k]; });
+    localStorage.setItem(KEY, JSON.stringify(mine));
+    localStorage.setItem(CKEY, JSON.stringify(Object.assign(readJSON(CKEY), cli)));
+  }catch(e){}
+}
 function save(){ clearTimeout(saveTimer); saveTimer=setTimeout(writeNow, 600); }
 function put(k,v){ store[k]=v; save(); }
 window.addEventListener("beforeunload", writeNow);
@@ -695,21 +709,6 @@ function render(){
   $("#out-mention").style.color = lu ? "" : "var(--todo)";
 
   $("#out-stamp").textContent = new Date().toLocaleString("fr-FR",{dateStyle:"long",timeStyle:"short"});
-  planHash();
-}
-
-/* ---------- empreinte ---------- */
-var hashTimer=null;
-function planHash(){ clearTimeout(hashTimer); hashTimer=setTimeout(doHash, 400); }
-function doHash(){
-  var doc=$("#doc");
-  var txt = Array.prototype.filter.call(doc.children, function(c){ return !c.classList.contains("audit"); })
-    .map(function(c){ return c.textContent.replace(/\s+/g," ").trim(); }).join("\n");
-  if(!window.crypto || !crypto.subtle){ $("#out-hash").textContent="indisponible sur ce navigateur"; return; }
-  crypto.subtle.digest("SHA-256", new TextEncoder().encode(txt)).then(function(buf){
-    var hex = Array.prototype.map.call(new Uint8Array(buf), function(b){ return b.toString(16).padStart(2,"0"); }).join("");
-    $("#out-hash").textContent = hex.replace(/(.{8})/g,"$1 ").trim();
-  }).catch(function(){ $("#out-hash").textContent="indisponible"; });
 }
 
 /* ---------- signatures ---------- */
@@ -773,7 +772,6 @@ function setId(dataUrl){
     $("#idimg").removeAttribute("src"); $("#out-id").removeAttribute("src");
     wrap.hidden=true; $("#annex").hidden=true;
   }
-  planHash();
 }
 $("#id_file").addEventListener("change", function(e){
   var f=e.target.files && e.target.files[0]; if(!f) return;

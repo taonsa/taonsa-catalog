@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contrat court TAONSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{
+  --bg:#eef1ee; --surface:#ffffff; --surface-2:#f7f9f7;
+  --ink:#151d18; --ink-2:#3a4841; --muted:#6a7a71;
+  --line:#d6dfd8; --line-strong:#b9c7bf;
+  --accent:#1c6a4d; --accent-ink:#ffffff; --accent-soft:#e2efe8;
+  --todo:#8a5a06; --todo-soft:#fbf0dd;
+  --danger:#9d2f2f; --danger-soft:#fbeaea;
+  --paper:#ffffff; --paper-ink:#141b16;
+  --shadow:0 1px 2px rgba(20,40,30,.06), 0 12px 32px rgba(20,40,30,.08);
+  --sans:"IBM Plex Sans", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --serif:"Spectral", Georgia, "Times New Roman", serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d120f; --surface:#151d18; --surface-2:#1a231d;
+    --ink:#e7efe9; --ink-2:#c2d0c7; --muted:#8fa197;
+    --line:#26332b; --line-strong:#39493f;
+    --accent:#4fb98a; --accent-ink:#06221a; --accent-soft:#162b22;
+    --todo:#e0aa62; --todo-soft:#2d2314;
+    --danger:#e08585; --danger-soft:#2d1717;
+    --paper:#141c17; --paper-ink:#e7efe9;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d120f; --surface:#151d18; --surface-2:#1a231d;
+  --ink:#e7efe9; --ink-2:#c2d0c7; --muted:#8fa197;
+  --line:#26332b; --line-strong:#39493f;
+  --accent:#4fb98a; --accent-ink:#06221a; --accent-soft:#162b22;
+  --todo:#e0aa62; --todo-soft:#2d2314;
+  --danger:#e08585; --danger-soft:#2d1717;
+  --paper:#141c17; --paper-ink:#e7efe9;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-text-size-adjust:100%}
+img{max-width:100%}
+[hidden]{display:none!important}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+a{color:var(--accent)}
+
+.app{display:flex;flex-direction:column;height:100%}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:baseline;gap:9px;margin-right:auto;min-width:0}
+.brand b{font-weight:600;letter-spacing:.14em;font-size:13px;text-transform:uppercase;color:var(--accent)}
+.brand span{font-family:var(--serif);font-size:15px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tabs{display:none;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px}
+.tabs button{border:0;background:transparent;color:var(--muted);padding:5px 14px;border-radius:999px;font-size:13px;font-weight:500;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.actions{display:flex;gap:8px;align-items:center}
+.btn{border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);padding:7px 13px;border-radius:8px;
+  font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block}
+.btn:hover{background:var(--surface-2)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{filter:brightness(1.07);background:var(--accent)}
+.btn-ghost{border-color:transparent;background:transparent;color:var(--muted)}
+.btn-ghost:hover{color:var(--ink);background:var(--surface-2)}
+
+.cols{flex:1;min-height:0;display:grid;grid-template-columns:minmax(340px,42ch) 1fr}
+.pane{min-height:0;overflow-y:auto;overscroll-behavior:contain}
+.pane-form{border-right:1px solid var(--line);background:var(--surface);padding:0 16px;padding-block:18px 64px}
+.pane-doc{background:var(--bg);padding:0 16px;padding-block:18px 64px}
+
+.notice{display:flex;gap:10px;align-items:flex-start;background:var(--todo-soft);
+  border:1px solid color-mix(in srgb, var(--todo) 35%, transparent);
+  color:var(--todo);border-radius:10px;padding:11px 13px;font-size:13px;line-height:1.45;margin-bottom:20px}
+.notice svg{flex:none;margin-top:2px}
+
+fieldset{border:0;margin:0 0 24px;padding:0}
+legend{display:flex;align-items:baseline;gap:9px;padding:0;margin-bottom:11px;width:100%}
+.step{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--accent);background:var(--accent-soft);
+  border-radius:4px;padding:2px 6px}
+legend h2{margin:0;font-size:14px;font-weight:600}
+.grid{display:grid;gap:11px}
+.g2{grid-template-columns:1fr 1fr}
+@media (max-width:520px){.g2{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label{font-size:11.5px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select,.field textarea{
+  width:100%;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:14px}
+.field input:focus,.field select:focus,.field textarea:focus{background:var(--surface)}
+.field textarea{resize:vertical;min-height:76px;line-height:1.5}
+.field .hint{font-size:11.5px;color:var(--muted);line-height:1.4}
+.row-inline{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink-2)}
+.sigbox{border:1px solid var(--line);border-radius:10px;background:var(--surface-2);overflow:hidden}
+.sigbox header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;border-bottom:1px solid var(--line)}
+.sigbox header span{font-size:11.5px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.sigbox canvas{display:block;width:100%;height:104px;background:var(--surface);touch-action:none;cursor:crosshair}
+
+/* --- jauge de page --- */
+.gauge{display:flex;align-items:center;gap:9px;max-width:210mm;margin:0 auto 12px;padding:8px 12px;border-radius:8px;
+  font-size:12.5px;line-height:1.35;border:1px solid var(--line);background:var(--surface)}
+.gauge .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none}
+.gauge.over{background:var(--danger-soft);border-color:color-mix(in srgb, var(--danger) 40%, transparent);color:var(--danger)}
+.gauge.over .dot{background:var(--danger)}
+
+/* --- feuille A4 --- */
+.sheet-wrap{display:flex;justify-content:center}
+.sheet{width:210mm;min-height:297mm;padding:16mm 15mm;background:var(--paper);color:var(--paper-ink);
+  border:1px solid var(--line);box-shadow:var(--shadow);transform-origin:top center;
+  font-family:var(--serif);font-size:9.6pt;line-height:1.4}
+.sheet h1{font-family:var(--serif);font-weight:600;font-size:14pt;line-height:1.2;margin:0 0 3pt;text-wrap:balance}
+.sheet .kicker{font-family:var(--sans);font-size:7.6pt;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:4pt}
+.sheet .ref{font-family:var(--mono);font-size:7.4pt;color:var(--muted)}
+.sheet .head{border-bottom:1.5pt solid var(--line-strong);padding-bottom:7pt;margin-bottom:9pt}
+.sheet p{margin:0 0 5.5pt}
+.sheet .art{margin:0 0 5.5pt}
+.sheet .art b.t{font-family:var(--sans);font-size:8.2pt;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
+.f{font-weight:500}
+.f.todo{background:var(--todo-soft);color:var(--todo);border-bottom:1px dotted var(--todo);padding:0 2px;border-radius:2px;
+  font-family:var(--sans);font-size:7.4pt;font-weight:600}
+.lettres{font-style:italic;color:var(--ink-2)}
+.sign-grid{display:grid;grid-template-columns:1fr 1fr;gap:16pt;margin-top:8pt;break-inside:avoid}
+.sign-cell .who{font-family:var(--sans);font-size:7.6pt;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.sign-cell .mention{font-size:8.4pt;font-style:italic;color:var(--ink-2)}
+.sign-cell .slot{height:58pt;border-bottom:.75pt solid var(--line-strong);display:flex;align-items:flex-end;justify-content:center;padding-bottom:2pt}
+.sign-cell .slot img{max-height:56pt;width:auto}
+.sign-cell .name{font-size:8.6pt;margin-top:3pt}
+.audit{margin-top:9pt;padding-top:5pt;border-top:.75pt solid var(--line);font-family:var(--mono);font-size:6.6pt;
+  line-height:1.6;color:var(--muted);word-break:break-word}
+
+@page{size:A4;margin:16mm 15mm}
+@media print{
+  :root{--paper:#fff;--paper-ink:#000;--line:#c9c9c9;--line-strong:#777;--muted:#555;--ink-2:#333;--accent:#14543d;--todo:#8a5a06}
+  body{background:#fff}
+  .app{display:block;height:auto}
+  .topbar,.pane-form,.gauge{display:none!important}
+  .cols{display:block}
+  .pane{overflow:visible;height:auto}
+  .pane-doc{padding:0;background:#fff}
+  .sheet-wrap{display:block}
+  .sheet{width:auto;min-height:0;padding:0;border:0;box-shadow:none;transform:none!important}
+}
+@media (max-width:900px){
+  .cols{grid-template-columns:1fr}
+  .tabs{display:inline-flex}
+  .pane-form{border-right:0}
+  .brand span{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><b>TAONSA</b><span>Contrat court, petites missions</span></div>
+    <div class="tabs" role="tablist" aria-label="Affichage">
+      <button type="button" id="tab-form" role="tab" aria-selected="true" aria-controls="pane-form">Formulaire</button>
+      <button type="button" id="tab-doc" role="tab" aria-selected="false" aria-controls="pane-doc">Contrat</button>
+    </div>
+    <div class="actions">
+      <a class="btn btn-ghost" href="index.html">Version complète</a>
+      <button type="button" class="btn btn-ghost" id="btn-demo">Exemple</button>
+      <button type="button" class="btn btn-ghost" id="btn-reset">Réinitialiser</button>
+      <button type="button" class="btn btn-primary" id="btn-print">Imprimer / PDF</button>
+    </div>
+  </header>
+
+  <div class="cols">
+  <section class="pane pane-form" id="pane-form" role="tabpanel" aria-labelledby="tab-form">
+    <div class="notice">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.6v4.2M8 11.2h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div>Version courte, pour une mission ponctuelle de faible montant. Au-delà, ou dès qu'il y a un logo, une charte ou plusieurs semaines de travail, utilisez la version complète.</div>
+    </div>
+
+    <form id="form" autocomplete="off">
+    <fieldset>
+      <legend><span class="step">01</span><h2>Les parties</h2></legend>
+      <div class="grid">
+        <div class="field"><label for="cl_denom">TAONSA, dénomination</label>
+          <input id="cl_denom" data-doc="cl_denom" placeholder="TAONSA SARL"></div>
+        <div class="grid g2">
+          <div class="field"><label for="cl_rep">Représentée par</label><input id="cl_rep" data-doc="cl_rep" placeholder="Nom et prénoms"></div>
+          <div class="field"><label for="cl_mail">E-mail TAONSA</label><input id="cl_mail" type="email" data-doc="cl_mail" placeholder="contact@taonsa.com"></div>
+        </div>
+        <div class="field"><label for="pr_nom">Graphiste, nom et prénoms</label><input id="pr_nom" data-doc="pr_nom" placeholder="Nom complet tel qu'il figure sur la CNIB"></div>
+        <div class="grid g2">
+          <div class="field"><label for="pr_num">N° CNIB</label><input id="pr_num" data-doc="pr_num" placeholder="B 0000000"></div>
+          <div class="field"><label for="pr_tel">Téléphone</label><input id="pr_tel" data-doc="pr_tel" placeholder="+226 ..."></div>
+        </div>
+        <div class="field"><label for="pr_mail">E-mail du graphiste</label><input id="pr_mail" type="email" data-doc="pr_mail" placeholder="graphiste@exemple.com"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="step">02</span><h2>La mission</h2></legend>
+      <div class="grid">
+        <div class="field"><label for="mi_titre">Intitulé</label><input id="mi_titre" data-doc="mi_titre" placeholder="Visuels produits pour le catalogue Meta"></div>
+        <div class="field"><label for="mi_desc">Livrables</label>
+          <textarea id="mi_desc" data-doc="mi_desc" placeholder="8 visuels carrés 1080 x 1080 px&#10;2 bannières 1200 x 628 px"></textarea>
+          <span class="hint">Une ligne par livrable, avec les quantités.</span></div>
+        <div class="field"><label for="mi_fin">Livraison au plus tard le</label><input id="mi_fin" type="date" data-doc="mi_fin"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="step">03</span><h2>Prix</h2></legend>
+      <div class="grid">
+        <div class="grid g2">
+          <div class="field"><label for="re_montant">Montant total (F CFA)</label>
+            <input id="re_montant" type="number" min="0" step="500" data-doc="re_montant" placeholder="75000"></div>
+          <div class="field"><label for="re_mode">Paiement par</label>
+            <select id="re_mode" data-doc="re_mode"><option>Orange Money</option><option>Moov Money</option><option>Virement bancaire</option><option>Espèces contre reçu</option></select></div>
+        </div>
+        <div class="field"><label for="re_acompte">Acompte à la signature (%)</label>
+          <input id="re_acompte" type="number" min="0" max="100" step="5" value="50" data-doc="re_acompte">
+          <span class="hint" id="acompte-hint"></span></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="step">04</span><h2>Confidentialité et signature</h2></legend>
+      <div class="grid">
+        <div class="grid g2">
+          <div class="field"><label for="co_duree">Confidentialité après la mission (ans)</label>
+            <input id="co_duree" type="number" min="1" max="10" value="2" data-doc="co_duree"></div>
+          <div class="field"><label for="sg_lieu">Fait à</label><input id="sg_lieu" data-doc="sg_lieu" value="Ouagadougou"></div>
+        </div>
+        <div class="field"><label for="sg_date">Le</label><input id="sg_date" type="date" data-doc="sg_date"></div>
+        <div class="sigbox">
+          <header><span>Signature TAONSA</span><button type="button" class="btn btn-ghost" data-clear="sig-client">Effacer</button></header>
+          <canvas id="sig-client" aria-label="Zone de signature de TAONSA"></canvas>
+        </div>
+        <div class="sigbox">
+          <header><span>Signature du graphiste</span><button type="button" class="btn btn-ghost" data-clear="sig-presta">Effacer</button></header>
+          <canvas id="sig-presta" aria-label="Zone de signature du graphiste"></canvas>
+        </div>
+        <label class="row-inline"><input type="checkbox" id="sg_lu" style="accent-color:var(--accent)">
+          Le graphiste déclare avoir lu et approuvé le contrat</label>
+      </div>
+    </fieldset>
+    </form>
+  </section>
+
+  <section class="pane pane-doc" id="pane-doc" role="tabpanel" aria-labelledby="tab-doc">
+    <div class="gauge" id="gauge"><span class="dot"></span><span id="gauge-txt">Mesure de la page…</span></div>
+    <div class="sheet-wrap" id="sheet-wrap">
+    <article class="sheet" id="sheet">
+      <div id="sheet-inner">
+      <div class="head">
+        <div class="kicker"><span class="f" data-out="cl_denom"></span></div>
+        <h1>Contrat de prestation graphique</h1>
+        <div class="ref">Référence <span id="ref"></span></div>
+      </div>
+
+      <p>Entre <span class="f" data-out="cl_denom"></span>, représentée par <span class="f" data-out="cl_rep"></span>,
+        e-mail <span class="f" data-out="cl_mail"></span>, ci-après « le Client »,<br>
+        et <span class="f" data-out="pr_nom"></span>, titulaire de la CNIB n° <span class="f" data-out="pr_num"></span>,
+        téléphone <span class="f" data-out="pr_tel"></span>, e-mail <span class="f" data-out="pr_mail"></span>,
+        ci-après « le Prestataire », il est convenu ce qui suit.</p>
+
+      <p class="art"><b class="t">1. Mission.</b> Le Prestataire réalise pour le Client :
+        <span class="f" data-out="mi_titre"></span>. Livrables : <span class="f" id="out_livrables"></span>.
+        La livraison intervient au plus tard le <span class="f" data-out="mi_fin"></span>, par un envoi daté par e-mail.
+        Elle n'est complète qu'accompagnée des fichiers sources ouverts, des polices utilisées et des justificatifs de licence
+        correspondants.</p>
+
+      <p class="art"><b class="t">2. Prix.</b> Le Client verse au Prestataire la somme forfaitaire de
+        <span class="f" data-out="re_montant_fmt"></span> F CFA (<span class="lettres" id="out_lettres"></span>),
+        toutes charges comprises, par <span class="f" data-out="re_mode"></span> :
+        <span class="f" data-out="re_acompte"></span> % à la signature du présent contrat et le solde à la livraison complète.
+        Ce prix couvre la prestation et la cession de droits prévue à l'article 3. Le Prestataire remet un reçu pour chaque
+        versement et supporte ses propres charges fiscales et sociales.</p>
+
+      <p class="art"><b class="t">3. Propriété des créations.</b> Le Prestataire cède au Client, à titre exclusif et définitif,
+        l'ensemble des droits patrimoniaux sur les créations réalisées dans le cadre de la mission, y compris les pistes non
+        retenues : droits de reproduction, de représentation, d'adaptation et de modification, sur tout support, pour le monde
+        entier et pour la durée légale de protection, à compter du paiement intégral du prix. Le Client peut les faire modifier
+        par un tiers de son choix et les céder avec sa marque. Le Prestataire s'interdit de les réutiliser, de les revendre ou
+        d'en produire des variantes pour un tiers. Il peut les présenter dans son portfolio après leur publication par le Client,
+        sans divulguer d'information confidentielle.</p>
+
+      <p class="art"><b class="t">4. Originalité.</b> Le Prestataire garantit que les créations sont originales. Tout élément
+        qu'il n'a pas créé lui-même (photographie, illustration, icône, police de caractères, élément généré par un outil
+        d'intelligence artificielle) doit être libre de droits ou couvert par une licence autorisant un usage commercial mondial,
+        dont le justificatif est remis avec les livrables. Il garantit le Client contre toute réclamation d'un tiers fondée sur
+        une atteinte à ses droits et en supporte les conséquences financières.</p>
+
+      <p class="art"><b class="t">5. Confidentialité.</b> Le Prestataire garde confidentielles les informations portées à sa
+        connaissance à l'occasion de la mission, notamment les fournisseurs, les prix d'achat, les marges, le catalogue produits,
+        les données clients, les accès qui lui sont remis et les statistiques de vente. Il n'en fait pas copie en dehors des
+        besoins de la mission et ne les communique à personne. Cet engagement vaut pendant la mission et pendant
+        <span class="f" data-out="co_duree"></span> ans après son terme. À la fin de la mission, il restitue ou détruit les
+        documents et fichiers reçus.</p>
+
+      <p class="art"><b class="t">6. Statut.</b> Le Prestataire intervient en qualité de travailleur indépendant. Le présent
+        contrat n'emporte aucun lien de subordination ni contrat de travail.</p>
+
+      <p class="art"><b class="t">7. Droit applicable et preuve.</b> Le contrat est régi par le droit burkinabè. Les Parties
+        reconnaissent la validité de leur signature électronique et conviennent que le présent document au format PDF, portant sa
+        référence et son horodatage et échangé entre les adresses e-mail indiquées ci-dessus, fait preuve de leur accord. À
+        défaut de règlement amiable dans les quinze jours suivant une réclamation écrite, le litige relève des juridictions
+        compétentes de <span class="f" data-out="sg_lieu"></span>.</p>
+
+      <p>Fait à <span class="f" data-out="sg_lieu"></span>, le <span class="f" data-out="sg_date"></span>, en deux exemplaires.</p>
+
+      <div class="sign-grid">
+        <div class="sign-cell">
+          <div class="who">Le Client</div>
+          <div class="mention">Lu et approuvé</div>
+          <div class="slot"><img id="out-sig-client" alt="" hidden></div>
+          <div class="name"><span class="f" data-out="cl_rep"></span></div>
+        </div>
+        <div class="sign-cell">
+          <div class="who">Le Prestataire</div>
+          <div class="mention" id="out-mention">Lu et approuvé</div>
+          <div class="slot"><img id="out-sig-presta" alt="" hidden></div>
+          <div class="name"><span class="f" data-out="pr_nom"></span></div>
+        </div>
+      </div>
+
+      <div class="audit">Référence <span id="out-ref2"></span> · établi le <span id="out-stamp"></span></div>
+      </div>
+    </article>
+    </div>
+  </section>
+  </div>
+</div>
+
+<div id="mm-probe" style="position:absolute;width:100mm;height:0;visibility:hidden;pointer-events:none"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,r){return (r||document).querySelector(s);};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+var KEY="taonsa.contrat.court.v1", CKEY="taonsa.client.v1", TODO="[À COMPLÉTER]";
+var CLIENT_KEYS=["cl_denom","cl_rep","cl_mail","cl_rccm","cl_ifu","cl_siege","cl_qual","cl_tel"];
+
+function readJSON(k){ try{ return JSON.parse(localStorage.getItem(k)||"{}")||{}; }catch(e){ return {}; } }
+var store=readJSON(KEY), client=readJSON(CKEY), saveTimer=null;
+function writeNow(){
+  try{
+    var mine={}, cli={};
+    Object.keys(store).forEach(function(k){ (CLIENT_KEYS.indexOf(k)>-1? cli : mine)[k]=store[k]; });
+    localStorage.setItem(KEY, JSON.stringify(mine));
+    localStorage.setItem(CKEY, JSON.stringify(Object.assign(readJSON(CKEY), cli)));
+  }catch(e){}
+}
+function save(){ clearTimeout(saveTimer); saveTimer=setTimeout(writeNow,600); }
+function put(k,v){ store[k]=v; save(); }
+window.addEventListener("beforeunload", writeNow);
+CLIENT_KEYS.forEach(function(k){ if(client[k]!==undefined && store[k]===undefined) store[k]=client[k]; });
+
+var fmtDate=new Intl.DateTimeFormat("fr-FR",{day:"numeric",month:"long",year:"numeric"});
+function dateFr(iso){
+  if(!iso) return "";
+  var p=iso.split("-"); if(p.length!==3) return iso;
+  var d=new Date(+p[0],+p[1]-1,+p[2]);
+  return isNaN(d)? iso : fmtDate.format(d);
+}
+function nombre(n){ return (Number(n)||0).toLocaleString("fr-FR").replace(/ | /g," "); }
+
+var U=["zéro","un","deux","trois","quatre","cinq","six","sept","huit","neuf","dix","onze","douze","treize","quatorze","quinze","seize","dix-sept","dix-huit","dix-neuf"];
+var D=["","","vingt","trente","quarante","cinquante","soixante","soixante","quatre-vingt","quatre-vingt"];
+function sousCent(n,final){
+  if(n<20) return U[n];
+  var d=Math.floor(n/10),u=n%10,sp=(d===7||d===9);
+  if(sp){ u+=10; d-=1; }
+  var s=D[d];
+  if(d===8&&u===0) return final? s+"s" : s;
+  if(u===0) return s;
+  if(!sp&&u===1&&d<=6) return s+" et un";
+  if(sp&&u===11&&d===6) return s+" et onze";
+  return s+"-"+U[u];
+}
+function sousMille(n,final){
+  if(n<100) return sousCent(n,final);
+  var c=Math.floor(n/100),r=n%100;
+  var s=(c>1? U[c]+" cent":"cent");
+  if(c>1&&r===0&&final) s+="s";
+  return r? s+" "+sousCent(r,final) : s;
+}
+function enLettres(n){
+  n=Math.floor(Number(n)||0);
+  if(n===0) return "zéro franc CFA";
+  var parts=[],mds=Math.floor(n/1e9),mil=Math.floor(n%1e9/1e6),k=Math.floor(n%1e6/1e3),r=n%1e3;
+  if(mds) parts.push(sousMille(mds,true)+" milliard"+(mds>1?"s":""));
+  if(mil) parts.push(sousMille(mil,true)+" million"+(mil>1?"s":""));
+  if(k) parts.push(k===1?"mille":sousMille(k,false)+" mille");
+  if(r) parts.push(sousMille(r,true));
+  return parts.join(" ")+(n===1? " franc CFA":" francs CFA");
+}
+
+var ref=store.__ref;
+if(!ref){
+  var t=new Date(), pad=function(x){return String(x).padStart(2,"0");};
+  ref="TAONSA-CC-"+t.getFullYear()+pad(t.getMonth()+1)+pad(t.getDate())+"-"+Math.random().toString(36).slice(2,6).toUpperCase();
+  put("__ref",ref);
+}
+$("#ref").textContent=ref;
+$("#out-ref2").textContent=ref;
+
+var inputs=$$("[data-doc]");
+var today=new Date().toISOString().slice(0,10);
+if(!store.sg_date) store.sg_date=today;
+inputs.forEach(function(el){ var k=el.dataset.doc; if(store[k]!==undefined&&store[k]!=="") el.value=store[k]; });
+if(store.sg_lu!==undefined) $("#sg_lu").checked=!!store.sg_lu;
+
+function val(k){ var el=$("[data-doc='"+k+"']"); return el? el.value.trim():""; }
+function setOut(k,text){
+  $$("[data-out='"+k+"']").forEach(function(el){
+    if(text){ el.textContent=text; el.classList.remove("todo"); }
+    else { el.textContent=TODO; el.classList.add("todo"); }
+  });
+}
+
+function render(){
+  inputs.forEach(function(el){ put(el.dataset.doc, el.value); });
+  ["cl_denom","cl_rep","cl_mail","pr_nom","pr_num","pr_tel","pr_mail","mi_titre","re_mode","re_acompte","co_duree","sg_lieu"]
+    .forEach(function(k){ setOut(k, val(k)); });
+  ["mi_fin","sg_date"].forEach(function(k){ setOut(k, dateFr(val(k))); });
+
+  var lignes=(val("mi_desc")||"").split("\n").map(function(s){return s.trim();}).filter(Boolean);
+  var ol=$("#out_livrables");
+  if(lignes.length){ ol.textContent=lignes.join(" ; "); ol.classList.remove("todo"); }
+  else { ol.textContent="[LIVRABLES À COMPLÉTER]"; ol.classList.add("todo"); }
+
+  var montant=Number(val("re_montant"))||0;
+  setOut("re_montant_fmt", montant? nombre(montant):"");
+  $("#out_lettres").textContent = montant? enLettres(montant):"montant en lettres à compléter";
+
+  var ac=Number(val("re_acompte"))||0;
+  $("#acompte-hint").textContent = montant
+    ? nombre(Math.round(montant*ac/100))+" F à la signature, "+nombre(montant-Math.round(montant*ac/100))+" F à la livraison."
+    : "";
+
+  var lu=$("#sg_lu").checked;
+  put("sg_lu",lu);
+  $("#out-mention").style.color = lu? "" : "var(--todo)";
+
+  $("#out-stamp").textContent=new Date().toLocaleString("fr-FR",{dateStyle:"long",timeStyle:"short"});
+  fit();
+}
+
+/* --- mise à l'échelle et contrôle d'une seule page --- */
+function pxPerMm(){ return $("#mm-probe").offsetWidth/100 || 3.7795; }
+function fit(){
+  var sheet=$("#sheet"), wrap=$("#sheet-wrap"), pane=$("#pane-doc");
+  var mm=pxPerMm();
+  var avail=pane.clientWidth-32;
+  var k=Math.min(1, avail/(210*mm));
+  sheet.style.transform = k<1? "scale("+k+")" : "";
+  wrap.style.height = k<1? Math.ceil(sheet.offsetHeight*k)+"px" : "";
+  var limite=(297-32)*mm, haut=$("#sheet-inner").scrollHeight;
+  var g=$("#gauge"), txt=$("#gauge-txt");
+  var pct=Math.round(haut/limite*100);
+  if(haut<=limite+1){
+    g.classList.remove("over");
+    txt.textContent="Tient sur une page A4, "+pct+" % de la hauteur utilisée.";
+  } else {
+    g.classList.add("over");
+    var deborde=Math.round((haut-limite)/mm);
+    txt.textContent="Dépasse d'environ "+deborde+" mm. Raccourcissez la liste des livrables ou l'intitulé de la mission.";
+  }
+}
+window.addEventListener("resize", fit);
+
+/* --- signatures --- */
+function signaturePad(canvasId, storeKey, imgId){
+  var cv=$("#"+canvasId), ctx=cv.getContext("2d"), drawing=false, dirty=false;
+  function resize(){
+    var data=dirty? cv.toDataURL():null;
+    var dpr=window.devicePixelRatio||1, w=cv.clientWidth||300, h=cv.clientHeight||104;
+    cv.width=Math.round(w*dpr); cv.height=Math.round(h*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.lineWidth=2; ctx.lineCap="round"; ctx.lineJoin="round";
+    ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue("--ink").trim()||"#000";
+    if(data){ var im=new Image(); im.onload=function(){ ctx.drawImage(im,0,0,w,h); }; im.src=data; }
+  }
+  function pos(e){ var r=cv.getBoundingClientRect(); return {x:e.clientX-r.left,y:e.clientY-r.top}; }
+  cv.addEventListener("pointerdown",function(e){
+    drawing=true; dirty=true; cv.setPointerCapture(e.pointerId);
+    var p=pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p.x+0.1,p.y); ctx.stroke();
+  });
+  cv.addEventListener("pointermove",function(e){ if(!drawing) return; var p=pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); });
+  function end(){ if(!drawing) return; drawing=false; var data=cv.toDataURL("image/png"); put(storeKey,data); show(data); fit(); }
+  cv.addEventListener("pointerup",end);
+  cv.addEventListener("pointercancel",end);
+  cv.addEventListener("pointerleave",end);
+  function show(data){
+    var img=$("#"+imgId);
+    if(data){ img.src=data; img.hidden=false; } else { img.removeAttribute("src"); img.hidden=true; }
+  }
+  $("[data-clear='"+canvasId+"']").addEventListener("click",function(){
+    ctx.clearRect(0,0,cv.width,cv.height); dirty=false; store[storeKey]=""; save(); show(""); fit();
+  });
+  window.addEventListener("resize",resize);
+  resize();
+  if(store[storeKey]){
+    var im=new Image();
+    im.onload=function(){ ctx.drawImage(im,0,0,cv.clientWidth,cv.clientHeight); dirty=true; };
+    im.src=store[storeKey];
+    show(store[storeKey]);
+  }
+}
+signaturePad("sig-client","sig_cl","out-sig-client");
+signaturePad("sig-presta","sig_pr","out-sig-presta");
+
+/* --- interactions --- */
+$("#form").addEventListener("input",render);
+$("#form").addEventListener("change",render);
+$("#form").addEventListener("submit",function(e){ e.preventDefault(); });
+
+$("#btn-print").addEventListener("click",function(){
+  var pane=$("#pane-doc"), was=pane.hidden;
+  pane.hidden=false; window.print();
+  setTimeout(function(){ pane.hidden=was; },300);
+});
+$("#btn-reset").addEventListener("click",function(){
+  if(!confirm("Effacer les données de ce contrat ?")) return;
+  try{ localStorage.removeItem(KEY); }catch(e){}
+  location.reload();
+});
+
+var DEMO={
+  cl_denom:"TAONSA SARL", cl_rep:"Abdoul Karim Sawadogo", cl_mail:"contact@taonsa.com",
+  pr_nom:"Safiatou Ouédraogo", pr_num:"B 1204587", pr_tel:"+226 76 00 00 00", pr_mail:"safi.design@exemple.bf",
+  mi_titre:"Visuels produits pour le catalogue Meta",
+  mi_desc:"8 visuels carrés 1080 x 1080 px\n2 bannières 1200 x 628 px",
+  mi_fin:"2026-09-30", re_montant:"75000", re_mode:"Orange Money", re_acompte:"50",
+  co_duree:"2", sg_lieu:"Ouagadougou"
+};
+$("#btn-demo").addEventListener("click",function(){
+  Object.keys(DEMO).forEach(function(k){ var el=$("[data-doc='"+k+"']"); if(el) el.value=DEMO[k]; });
+  $("#sg_lu").checked=true;
+  render();
+  if(window.matchMedia("(max-width:900px)").matches) tab("doc");
+});
+
+var tabF=$("#tab-form"), tabD=$("#tab-doc");
+function tab(which){
+  var isForm=which==="form";
+  tabF.setAttribute("aria-selected",String(isForm));
+  tabD.setAttribute("aria-selected",String(!isForm));
+  if(window.matchMedia("(max-width:900px)").matches){
+    $("#pane-form").hidden=!isForm;
+    $("#pane-doc").hidden=isForm;
+  }
+  if(!isForm) requestAnimationFrame(fit);
+}
+tabF.addEventListener("click",function(){ tab("form"); });
+tabD.addEventListener("click",function(){ tab("doc"); });
+function syncPanes(){
+  if(window.matchMedia("(max-width:900px)").matches){
+    tab(tabD.getAttribute("aria-selected")==="true"?"doc":"form");
+  } else { $("#pane-form").hidden=false; $("#pane-doc").hidden=false; fit(); }
+}
+window.addEventListener("resize",syncPanes);
+syncPanes();
+render();
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
+</body>
+</html>
