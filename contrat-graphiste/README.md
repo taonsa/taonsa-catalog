@@ -15,6 +15,8 @@ https://<user>.github.io/taonsa-catalog/contrat-graphiste/court.html
 
 Le bouton « Exemple » remplit tous les champs avec des données fictives pour voir le document fini.
 
+Chaque partie signe soit directement dans le cadre, au doigt ou à la souris, soit en important une photo de sa signature tracée sur une feuille blanche. À l'import, le fond de la photo est rendu transparent et le tracé est recadré, pour que la signature s'intègre au contrat sans rectangle blanc autour.
+
 Saisir d'abord les informations de TAONSA (section 01). Elles sont conservées dans le navigateur, donc à faire une seule fois. Le graphiste complète ensuite les sections 02 à 06, signe et joint sa pièce d'identité. Le bouton « Imprimer / PDF » ouvre la boîte de dialogue d'impression, où « Enregistrer au format PDF » produit le fichier final.
 
 Envoyer ce PDF aux deux adresses e-mail figurant en tête du contrat. C'est cet échange qui sert de preuve en cas de contestation.
