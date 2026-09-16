@@ -194,18 +194,18 @@ legend h2{margin:0;font-family:var(--sans);font-size:14px;font-weight:600;letter
   <section class="pane pane-form" id="pane-form" role="tabpanel" aria-labelledby="tab-form">
     <div class="notice">
       <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.6v4.2M8 11.2h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      <div><b>Modèle à compléter.</b> Les champs surlignés dans le contrat sont vides. Renseignez les mentions légales de TAONSA une fois : elles resteront enregistrées dans ce navigateur. Faites relire le modèle par un juriste avant la première utilisation.</div>
+      <div><b>Modèle vierge.</b> Les champs en orange dans le contrat restent à renseigner. Les informations de TAONSA (section 01) sont mémorisées dans ce navigateur, à saisir une seule fois. Faites relire le contrat par un juriste avant de l'utiliser.</div>
     </div>
 
     <div class="notice" id="demo-note" hidden style="background:var(--accent-soft);border-color:var(--accent);color:var(--accent)">
       <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.4"/><path d="M5 8.2l2 2 4-4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div><b>Données d'exemple chargées.</b> Noms, montants et dates sont fictifs : ils servent uniquement à visualiser le contrat rempli. « Réinitialiser » repart d'une page vierge.</div>
+      <div><b>Exemple chargé.</b> Noms, montants et dates sont fictifs. « Réinitialiser » repart d'une page vierge.</div>
     </div>
 
     <form id="form" autocomplete="off">
 
     <fieldset>
-      <legend><span class="step">01</span><h2>Le Client — TAONSA</h2></legend>
+      <legend><span class="step">01</span><h2>Le Client (TAONSA)</h2></legend>
       <div class="grid">
         <div class="field">
           <label for="cl_denom">Dénomination et forme juridique</label>
@@ -228,7 +228,7 @@ legend h2{margin:0;font-family:var(--sans);font-size:14px;font-weight:600;letter
     </fieldset>
 
     <fieldset>
-      <legend><span class="step">02</span><h2>Le Prestataire — le graphiste</h2></legend>
+      <legend><span class="step">02</span><h2>Le Prestataire (le graphiste)</h2></legend>
       <div class="grid">
         <div class="field"><label for="pr_nom">Nom et prénoms</label><input id="pr_nom" data-doc="pr_nom" placeholder="Nom complet tel qu'il figure sur la CNIB"></div>
         <div class="grid g2">
@@ -257,14 +257,14 @@ legend h2{margin:0;font-family:var(--sans);font-size:14px;font-weight:600;letter
           <input id="mi_titre" data-doc="mi_titre" placeholder="Identité visuelle et visuels produits TAONSA"></div>
         <div class="field"><label for="mi_desc">Livrables détaillés</label>
           <textarea id="mi_desc" data-doc="mi_desc" placeholder="1 logo (3 pistes, 1 retenue) &#10;12 visuels produits format carré pour Meta &#10;1 charte graphique simplifiée (couleurs, polices, usages)"></textarea>
-          <span class="hint">Une ligne par livrable, avec les quantités. C'est cette liste qui vous protège en cas de désaccord.</span></div>
+          <span class="hint">Une ligne par livrable, avec les quantités.</span></div>
         <div class="grid g2">
           <div class="field"><label for="mi_debut">Début</label><input id="mi_debut" type="date" data-doc="mi_debut"></div>
           <div class="field"><label for="mi_fin">Livraison finale</label><input id="mi_fin" type="date" data-doc="mi_fin"></div>
         </div>
         <div class="field"><label for="mi_ar">Allers-retours de correction inclus</label>
           <input id="mi_ar" type="number" min="0" max="20" step="1" value="2" data-doc="mi_ar">
-          <span class="hint">Au-delà, toute modification est facturée en sus. Sans ce plafond, les retouches sont sans fin.</span></div>
+          <span class="hint">Au-delà, chaque modification fait l'objet d'un devis.</span></div>
         <div class="field"><label>Fichiers sources à remettre</label>
           <div class="checks" id="sources">
             <label class="chk"><input type="checkbox" value=".ai (Illustrator)" checked> .ai</label>
@@ -335,7 +335,7 @@ legend h2{margin:0;font-family:var(--sans);font-size:14px;font-weight:600;letter
         </div>
         <div class="field"><label for="id_file">Pièce d'identité du Prestataire (annexe 1)</label>
           <input id="id_file" type="file" accept="image/*">
-          <span class="hint">L'image reste dans ce navigateur : rien n'est envoyé sur un serveur.</span>
+          <span class="hint">L'image reste sur cet appareil.</span>
           <div class="idprev" id="idprev" hidden><img id="idimg" alt="Aperçu de la pièce d'identité">
             <button type="button" class="btn btn-ghost" id="id-clear">Retirer</button></div></div>
         <label class="row-inline"><input type="checkbox" id="sg_lu" style="accent-color:var(--accent)">
@@ -390,7 +390,7 @@ legend h2{margin:0;font-family:var(--sans);font-size:14px;font-weight:600;letter
       (e-mail à l'adresse du Client ou lien de téléchargement confirmé par e-mail).</p>
 
     <h3>Article 3 — Rémunération et modalités de paiement</h3>
-    <p>En contrepartie de l'exécution de la mission <em>et de la cession de droits prévue à l'article 4</em>, le Client verse au
+    <p>En contrepartie de l'exécution de la mission et de la cession de droits prévue à l'article 4, le Client verse au
       Prestataire la somme forfaitaire, globale et définitive de <span class="f" data-out="re_montant_fmt"></span> F CFA
       (<span class="amount-words" id="out_lettres"></span>), toutes charges comprises.</p>
     <p>Ce montant est réglé par <span class="f" data-out="re_mode"></span> selon l'échéancier suivant :</p>
@@ -428,8 +428,8 @@ legend h2{margin:0;font-family:var(--sans);font-size:14px;font-weight:600;letter
     <h3>Article 5 — Garantie d'originalité et garantie d'éviction</h3>
     <p>Le Prestataire garantit que les créations livrées sont originales et qu'elles ne portent atteinte à aucun droit de tiers,
       notamment de droit d'auteur, de marque, de dessin et modèle ou de droit à l'image.</p>
-    <p>Tout élément qu'il n'a pas créé lui-même — photographie, illustration, icône, police de caractères, musique, élément généré
-      par un outil d'intelligence artificielle — doit être libre de droits ou couvert par une licence autorisant un usage
+    <p>Tout élément qu'il n'a pas créé lui-même (photographie, illustration, icône, police de caractères, musique, élément
+      généré par un outil d'intelligence artificielle) doit être libre de droits ou couvert par une licence autorisant un usage
       <strong>commercial, mondial et permanent</strong>, y compris en publicité payante. Les justificatifs de licence sont remis
       au Client avec les livrables ; à défaut, la livraison est réputée incomplète.</p>
     <p>Le Prestataire garantit le Client contre toute réclamation, action ou condamnation fondée sur une atteinte aux droits d'un
@@ -440,8 +440,8 @@ legend h2{margin:0;font-family:var(--sans);font-size:14px;font-weight:600;letter
     <p>Le Prestataire s'engage à garder strictement confidentielles les informations portées à sa connaissance à l'occasion de la
       mission, notamment : l'identité et les coordonnées des fournisseurs, les prix d'achat, les marges et la structure des coûts,
       les fichiers du catalogue produits, les données et fichiers clients, les identifiants et accès remis par le Client, les
-      statistiques de vente et de performance publicitaire, ainsi que les projets et produits non encore lancés<span id="co_extra_wrap"> —
-      en particulier <span class="f" data-out="co_extra"></span></span>.</p>
+      statistiques de vente et de performance publicitaire, ainsi que les projets et produits non encore lancés<span id="co_extra_wrap">, ainsi que
+      <span class="f" data-out="co_extra"></span></span>.</p>
     <p>Il s'interdit d'en faire copie en dehors des besoins de la mission, de les divulguer à un tiers et de les utiliser à son
       profit ou au profit d'un tiers. Cet engagement vaut pendant toute la durée de la mission et pendant
       <span class="f" data-out="co_duree"></span> ans à compter de son terme.</p>
@@ -678,7 +678,7 @@ function render(){
     tr.append(td1,td2,td3); tb.appendChild(tr);
   });
   var sum=$("#ms-sum");
-  sum.textContent = total===100 ? "Total : 100 % ✓" : "Total : "+total+" % — l'échéancier doit faire 100 %.";
+  sum.textContent = total===100 ? "Total : 100 %" : "Total : "+total+" %, au lieu de 100 %.";
   sum.style.color = total===100 ? "var(--muted)" : "var(--danger)";
 
   /* portfolio */
@@ -691,7 +691,7 @@ function render(){
   /* mention lu et approuvé */
   var lu=$("#sg_lu").checked;
   put("sg_lu", lu);
-  $("#out-mention").textContent = lu ? "Lu et approuvé" : "Lu et approuvé — case à cocher";
+  $("#out-mention").textContent = "Lu et approuvé";
   $("#out-mention").style.color = lu ? "" : "var(--todo)";
 
   $("#out-stamp").textContent = new Date().toLocaleString("fr-FR",{dateStyle:"long",timeStyle:"short"});
